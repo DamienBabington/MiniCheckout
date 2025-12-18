@@ -9,34 +9,41 @@ import SwiftUI
 
 struct ProductListView: View {
     @Environment(CartStore.self) private var cart
-    
-    // Placeholder data
-    private let products: [Product] = [
-        Product(name: "Milk", price: 2.49),
-        Product(name: "Eggs", price: 3.99),
-        Product(name: "Bread", price: 2.19),
-        Product(name: "Chicken", price: 4.50)
-    ]
+    @State private var viewModel = ProductListViewModel()
     
     var body: some View {
-        List {
-            Section {
-                ForEach(products) { product in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(product.name)
-                            
-                            Text(product.price, format: .currency(code: "USD"))
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
+        Group {
+            switch viewModel.state {
+            case .idle, .loading:
+                ProgressView("Loading products...")
+                    .task { await viewModel.loadProducts() }
+            case .failed(let message):
+                VStack(spacing: 12) {
+                    Text(message)
+                    Button("Retry") {
+                        Task { await viewModel.loadProducts() }
+                    }
+                }
+            case .loaded(let products):
+                List {
+                    Section {
+                        ForEach(products) { product in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(product.name)
+                                    Text(product.price, format: .currency(code: "USD"))
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                                
+                                Spacer()
+                                
+                                Button("Add") {
+                                    cart.add(product)
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
                         }
-                        
-                        Spacer()
-                        
-                        Button("Add") {
-                            cart.add(product)
-                        }
-                        .buttonStyle(.borderedProminent)
                     }
                 }
             }
