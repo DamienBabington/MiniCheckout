@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MiniCheckoutApp: App {
+    @State private var cartStore = CartStore()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(cartStore)
         }
     }
 }
