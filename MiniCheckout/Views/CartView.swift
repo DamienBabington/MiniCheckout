@@ -15,7 +15,7 @@ struct CartView: View {
         List {
             if cart.items.isEmpty {
                 ContentUnavailableView("Your cart is empty",
-                                       image: "bag",
+                                       systemImage: "bag",
                                        description: Text("Add products from the Products tab"))
             } else {
                 Section("Items") {

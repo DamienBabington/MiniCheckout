@@ -8,11 +8,22 @@
 import Foundation
 import Observation
 
-@MainActor
 @Observable
 final class CartStore {
-    private(set) var items: [CartItem] = []
     
+    private(set) var items: [CartItem] = [] {
+        didSet { persist() }
+    }
+    
+    private let persistence: CartPersistence
+    
+    init(persistence: CartPersistence = UserDefaultsCartPersistence()) {
+        self.persistence = persistence
+    }
+    
+    // MARK: - Cart Actions
+    
+    @MainActor
     func add(_ product: Product) {
         // Increment if product is already in the cart
         if let index = items.firstIndex(where: { $0.product.id == product.id }) {
@@ -23,6 +34,7 @@ final class CartStore {
         }
     }
     
+    @MainActor
     func removeOne(_ product: Product) {
         // Make sure product is actually in the cart
         guard let index = items.firstIndex(where: { $0.product.id == product.id }) else { return }
@@ -35,6 +47,7 @@ final class CartStore {
         }
     }
     
+    @MainActor
     func setQuantity(_ quantity: Int, for product: Product) {
         guard quantity >= 0 else { return }
         
@@ -51,9 +64,12 @@ final class CartStore {
         }
     }
     
+    @MainActor
     func clear() {
         items.removeAll()
     }
+    
+    // MARK: - Computed Properties
     
     var itemCount: Int {
         // Sum quantity of all items
@@ -63,5 +79,26 @@ final class CartStore {
     var total: Decimal {
         // Sum of each product's subtotal
         items.reduce(0) { $0 + ($1.product.price * Decimal($1.quantity)) }
+    }
+    
+    // MARK: - Persistence
+    
+    @MainActor
+    func restore(using products: [Product]) {
+        let storedItems = persistence.load()
+        
+        items = storedItems.compactMap { stored in
+            guard let product = products.first(where: { $0.id == stored.productID }) else {
+                return nil
+            }
+            return CartItem(product: product, quantity: stored.quantity)
+        }
+    }
+    
+    private func persist() {
+        let stored = items.map {
+            StoredCartItem(productID: $0.product.id, quantity: $0.quantity)
+        }
+        persistence.save(stored)
     }
 }

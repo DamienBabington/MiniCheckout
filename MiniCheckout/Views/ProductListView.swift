@@ -46,6 +46,9 @@ struct ProductListView: View {
                         }
                     }
                 }
+                .onAppear {
+                    cart.restore(using: products)
+                }
             }
         }
         .navigationTitle("Products")
