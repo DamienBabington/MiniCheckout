@@ -1,0 +1,23 @@
+[
+  {
+    "id": "8F9E7C6A-1C2B-4C9A-9B6A-111111111111",
+    "name": "Milk",
+    "price": 2.49
+  },
+  {
+    "id": "9A8B7C6D-2B3C-4D5E-9F6A-222222222222",
+    "name": "Eggs",
+    "price": 3.99
+  },
+  {
+    "id": "A1B2C3D4-5E6F-7A8B-9C0D-333333333333",
+    "name": "Bread",
+    "price": 2.19
+  },
+  {
+    "id": "B2C3D4E5-6F7A-8B9C-0D1E-444444444444",
+    "name": "Chicken Wings",
+    "price": 4.50
+  }
+]
+

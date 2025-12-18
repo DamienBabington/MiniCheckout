@@ -16,6 +16,11 @@
 			path = MiniCheckout;
 			sourceTree = "<group>";
 		};
+		749FBFA82EF4036000E5EFB6 /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 		749FBF7A2EF3815300E5EFB6 = {
 			isa = PBXGroup;
 			children = (
+				749FBFA82EF4036000E5EFB6 /* Resources */,
 				749FBF852EF3815300E5EFB6 /* MiniCheckout */,
 				749FBF842EF3815300E5EFB6 /* Products */,
 			);
@@ -62,6 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				749FBF852EF3815300E5EFB6 /* MiniCheckout */,
+				749FBFA82EF4036000E5EFB6 /* Resources */,
 			);
 			name = MiniCheckout;
 			packageProductDependencies = (
