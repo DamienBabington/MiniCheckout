@@ -9,38 +9,122 @@ import SwiftUI
 
 struct CheckoutView: View {
     @Environment(CartStore.self) private var cart
+    @Environment(\.dismiss) private var dismiss
+    @State private var viewModel = CheckoutViewModel()
     
     var body: some View {
         List {
             Section("Order Summary") {
-                ForEach(cart.items) { item in
-                    Text("\(item.product.name))")
-                    Spacer()
-                    Text("x\(item.quantity)")
+                if cart.items.isEmpty {
+                    Text("Your cart is empty.")
                         .foregroundStyle(.secondary)
+                } else {
+                    ForEach(cart.items) { item in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("\(item.product.name)")
+                                Text(item.product.price, format: .currency(code: "USD"))
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Text("x\(item.quantity)")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                 }
             }
             
             Section {
                 HStack {
                     Text("Total")
+                    
                     Spacer()
+                    
                     Text(cart.total, format: .currency(code: "USD"))
                         .fontWeight(.semibold)
                 }
             }
-        }
-        .navigationTitle("Checkout")
-        .safeAreaInset(edge: .bottom) {
-            Button(action: { /* Pay */ }) {
-                Text("Pay \(cart.total, format: .currency(code: "USD"))")
-                    .frame(maxWidth: .infinity)
-                    .buttonStyle(.borderedProminent)
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .disabled(cart.items.isEmpty)
+            
+            Section {
+                checkoutStateRow
             }
         }
+        .navigationTitle("Checkout")
+    }
+    
+    @ViewBuilder
+    private var checkoutStateRow: some View {
+        switch viewModel.state {
+        case .ready:
+            Button {
+                let request = makeRequest()
+                Task { await viewModel.pay(with: request) }
+            } label: {
+                Text("Pay \(cart.total, format: .currency(code: "USD"))")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(cart.items.isEmpty)
+            
+        case .processing:
+            HStack(spacing: 12) {
+                ProgressView()
+                Text("Processing payment...")
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            
+        case .failed(let message):
+            VStack(alignment: .leading, spacing: 12) {
+                Text(message)
+                    .foregroundStyle(.red)
+                
+                HStack {
+                    Button("Retry") {
+                        let request = makeRequest()
+                        Task { await viewModel.pay(with: request) }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(cart.items.isEmpty)
+                    
+                    Button("Cancel") {
+                        viewModel.reset()
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            
+        case .success(let receipt):
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Payment Confirmed")
+                    .font(.headline)
+                
+                Text("Receipt: \(receipt.receiptID.uuidString.prefix(8))")
+                    .foregroundStyle(.secondary)
+                
+                Text("Total: \(receipt.total, format: .currency(code: "USD"))")
+                
+                Button("Done") {
+                    cart.clear()
+                    dismiss()
+                }
+                .buttonStyle(.borderedProminent)
+            }
+        }
+    }
+    
+    private func makeRequest() -> CheckoutRequest {
+        let items = cart.items.map {
+            CheckoutRequest.LineItem(
+                productID: $0.product.id,
+                quantity: $0.quantity,
+                unitPrice: $0.product.price
+            )
+        }
+        return CheckoutRequest(items: items, total: cart.total)
     }
 }
 
