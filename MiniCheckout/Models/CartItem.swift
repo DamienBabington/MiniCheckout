@@ -10,5 +10,5 @@ import Foundation
 struct CartItem: Identifiable, Hashable {
     var id: UUID { product.id }
     let product: Product
-    let quantity: Int
+    var quantity: Int
 }
