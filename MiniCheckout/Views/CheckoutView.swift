@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CheckoutView: View {
     @Environment(CartStore.self) private var cart
+    @Environment(WalletStore.self) private var wallet
     @Environment(\.dismiss) private var dismiss
     
     @State private var viewModel = CheckoutViewModel()
@@ -31,8 +32,9 @@ struct CheckoutView: View {
                             
                             Spacer()
                             
-                            Text("x\(item.quantity)")
+                            Text("x \(item.quantity)")
                                 .foregroundStyle(.secondary)
+                                .padding(.trailing)
                         }
                     }
                 }
@@ -54,6 +56,12 @@ struct CheckoutView: View {
             }
         }
         .navigationTitle("Checkout")
+        .onChange(of: viewModel.state) { _, newState in
+            if case .success(let receipt) = newState {
+                wallet.deduct(receipt.total)
+                cart.clear()
+            }
+        }
     }
     
     @ViewBuilder
@@ -68,7 +76,13 @@ struct CheckoutView: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
-            .disabled(cart.items.isEmpty)
+            .disabled(cart.items.isEmpty || !wallet.canAfford(cart.total))
+            
+            if !wallet.canAfford(cart.total) {
+                Text("Insufficient wallet balance.")
+                    .font(.caption)
+                    .foregroundStyle(.red)                    
+            }
             
         case .processing:
             HStack(spacing: 12) {
@@ -109,7 +123,6 @@ struct CheckoutView: View {
                 Text("Total: \(receipt.total, format: .currency(code: "USD"))")
                 
                 Button("Done") {
-                    cart.clear()
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)
@@ -132,4 +145,5 @@ struct CheckoutView: View {
 #Preview {
     CheckoutView()
         .environment(CartStore())
+        .environment(WalletStore())
 }
