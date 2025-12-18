@@ -10,6 +10,7 @@ import SwiftUI
 struct CheckoutView: View {
     @Environment(CartStore.self) private var cart
     @Environment(\.dismiss) private var dismiss
+    
     @State private var viewModel = CheckoutViewModel()
     
     var body: some View {

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProductListView: View {
     @Environment(CartStore.self) private var cart
+    @Environment(WalletStore.self) private var wallet
+    
     @State private var viewModel = ProductListViewModel()
     
     var body: some View {
@@ -54,9 +56,13 @@ struct ProductListView: View {
         .navigationTitle("Products")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Text("Cart: \(cart.itemCount)")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                VStack() {
+                    Text("Cart: \(cart.itemCount)")
+                    Text("Wallet \(wallet.balance, format: .currency(code: "USD"))")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding()
             }
         }
     }
@@ -65,4 +71,5 @@ struct ProductListView: View {
 #Preview {
     ProductListView()
         .environment(CartStore())
+        .environment(WalletStore())
 }

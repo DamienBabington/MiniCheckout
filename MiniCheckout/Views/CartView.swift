@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CartView: View {
     @Environment(CartStore.self) private var cart
+    
     @State private var showCheckout = false
     
     var body: some View {
