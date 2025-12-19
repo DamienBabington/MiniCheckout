@@ -60,12 +60,6 @@ struct CartView: View {
                         }
                     }
                 }
-                
-                Section {
-                    
-                    
-                    
-                }
             }
         }
         .navigationTitle("Cart")
@@ -95,7 +89,6 @@ struct CartView: View {
                     showClearConfirmation = true
                 }
                 .frame(maxWidth: .infinity)
-                .buttonStyle(.bordered)
                 .disabled(cart.items.isEmpty)
             }
             .padding()
@@ -103,12 +96,10 @@ struct CartView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                VStack() {
-                    Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
-                        .foregroundStyle(.secondary)
-                        .monospacedDigit()
-                }
-                .padding()
+                Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
+                    .foregroundStyle(.secondary)
+                    .monospacedDigit()
+                    .padding()
             }
         }
         .alert("Clear Cart", isPresented: $showClearConfirmation) {
