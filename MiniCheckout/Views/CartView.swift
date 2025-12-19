@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CartView: View {
     @Environment(CartStore.self) private var cart
+    @Environment(WalletStore.self) private var wallet
     
     @State private var showCheckout = false
     @State private var showClearConfirmation: Bool = false
@@ -91,6 +92,15 @@ struct CartView: View {
         .navigationTitle("Cart")
         .navigationDestination(isPresented: $showCheckout) {
             CheckoutView()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                VStack() {
+                    Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
+                        .foregroundStyle(.secondary)
+                }
+                .padding()
+            }
         }
         .alert("Clear Cart", isPresented: $showClearConfirmation) {
             Button("Clear Cart", role: .destructive) {

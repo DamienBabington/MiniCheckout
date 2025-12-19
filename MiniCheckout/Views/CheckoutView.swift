@@ -58,6 +58,15 @@ struct CheckoutView: View {
                 checkoutStateRow
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                VStack() {
+                    Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
+                        .foregroundStyle(.secondary)
+                }
+                .padding()
+            }
+        }
         .navigationTitle("Checkout")
         .onChange(of: viewModel.state) { _, newState in
             if case .success(let receipt) = newState {
