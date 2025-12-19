@@ -2,22 +2,51 @@
   {
     "id": "8F9E7C6A-1C2B-4C9A-9B6A-111111111111",
     "name": "Milk",
-    "price": 350
+    "price": 238
   },
   {
     "id": "9A8B7C6D-2B3C-4D5E-9F6A-222222222222",
     "name": "Eggs",
-    "price": 410
+    "price": 298
   },
   {
     "id": "A1B2C3D4-5E6F-7A8B-9C0D-333333333333",
     "name": "Bread",
-    "price": 280
+    "price": 188
   },
   {
     "id": "B2C3D4E5-6F7A-8B9C-0D1E-444444444444",
-    "name": "Chicken Wings",
-    "price": 450
+    "name": "Apples",
+    "price": 498
+  },
+  {
+    "id": "C3D4E5F6-7A8B-9C0D-1E2F-555555555555",
+    "name": "Bananas",
+    "price": 198
+  },
+  {
+    "id": "D4E5F6A7-8B9C-0D1E-2F3A-666666666666",
+    "name": "Chicken Breast",
+    "price": 680
+  },
+  {
+    "id": "E5F6A7B8-9C0D-1E2F-3A4B-777777777777",
+    "name": "Rice (2kg)",
+    "price": 1280
+  },
+  {
+    "id": "F6A7B8C9-0D1E-2F3A-4B5C-888888888888",
+    "name": "Onions",
+    "price": 155
+  },
+  {
+    "id": "A7B8C9D0-1E2F-3A4B-5C6D-999999999999",
+    "name": "Potatoes",
+    "price": 298
+  },
+  {
+    "id": "B8C9D0E1-2F3A-4B5C-6D7E-AAAAAAAAAAAA",
+    "name": "Tofu",
+    "price": 150
   }
 ]
-
