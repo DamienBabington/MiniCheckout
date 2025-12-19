@@ -76,7 +76,9 @@ struct CartView: View {
             VStack(spacing: 10) {
                 HStack {
                     Text("Total")
+                        .font(.title)
                     Text(cart.total, format: .currency(code: "JPY"))
+                        .font(.title)
                         .fontWeight(.semibold)
                 }
                 
@@ -93,7 +95,7 @@ struct CartView: View {
                     showClearConfirmation = true
                 }
                 .frame(maxWidth: .infinity)
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.bordered)
                 .disabled(cart.items.isEmpty)
             }
             .padding()
