@@ -25,7 +25,7 @@ struct CheckoutView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("\(item.product.name)")
-                                Text(item.product.price, format: .currency(code: "USD"))
+                                Text(item.product.price, format: .currency(code: "JPY"))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
@@ -46,7 +46,7 @@ struct CheckoutView: View {
                     
                     Spacer()
                     
-                    Text(cart.total, format: .currency(code: "USD"))
+                    Text(cart.total, format: .currency(code: "JPY"))
                         .fontWeight(.semibold)
                 }
             }
@@ -72,7 +72,7 @@ struct CheckoutView: View {
                 guard let request = makeRequest() else { return }
                 Task { await viewModel.pay(with: request) }
             } label: {
-                Text("Pay \(cart.total, format: .currency(code: "USD"))")
+                Text("Pay \(cart.total, format: .currency(code: "JPY"))")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
@@ -120,7 +120,7 @@ struct CheckoutView: View {
                 Text("Receipt: \(receipt.receiptID.uuidString.prefix(8))")
                     .foregroundStyle(.secondary)
                 
-                Text("Total: \(receipt.total, format: .currency(code: "USD"))")
+                Text("Total: \(receipt.total, format: .currency(code: "JPY"))")
                 
                 Button("Done") {
                     dismiss()

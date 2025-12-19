@@ -33,7 +33,7 @@ struct ProductListView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(product.name)
-                                    Text(product.price, format: .currency(code: "USD"))
+                                    Text(product.price, format: .currency(code: "JPY"))
                                         .font(.subheadline)
                                         .foregroundStyle(.secondary)
                                 }
@@ -58,7 +58,7 @@ struct ProductListView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 VStack() {
                     Text("Cart: \(cart.itemCount)")
-                    Text("Wallet \(wallet.balance, format: .currency(code: "USD"))")
+                    Text("Wallet \(wallet.balance, format: .currency(code: "JPY"))")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

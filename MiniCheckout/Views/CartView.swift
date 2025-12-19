@@ -26,7 +26,7 @@ struct CartView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(item.product.name)
                                 
-                                Text(item.product.price, format: .currency(code: "USD"))
+                                Text(item.product.price, format: .currency(code: "JPY"))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
@@ -36,7 +36,7 @@ struct CartView: View {
                             VStack(spacing: 4) {
                                 Text(
                                     (item.product.price * Decimal(item.quantity)),
-                                    format: .currency(code: "USD")
+                                    format: .currency(code: "JPY")
                                 )
                                 .fontWeight(.semibold)
                                 
@@ -66,7 +66,7 @@ struct CartView: View {
                         
                         Spacer()
                         
-                        Text(cart.total, format: .currency(code: "USD"))
+                        Text(cart.total, format: .currency(code: "JPY"))
                             .fontWeight(.semibold)
                     }
                     

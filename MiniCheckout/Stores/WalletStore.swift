@@ -16,7 +16,7 @@ final class WalletStore {
         didSet { persist() }
     }
     
-    init(initialBalance: Decimal = 100) {
+    init(initialBalance: Decimal = 10_000) {
         if let stored = WalletStore.loadStoredBalance(key: key) {
             self.balance = stored
         } else {
