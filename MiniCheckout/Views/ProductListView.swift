@@ -76,6 +76,7 @@ struct ProductListView: View {
                     Text("Wallet \(wallet.balance, format: .currency(code: "JPY"))")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                        .monospacedDigit()
                 }
                 .padding()
             }

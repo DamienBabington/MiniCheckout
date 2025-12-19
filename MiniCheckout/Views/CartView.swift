@@ -62,30 +62,9 @@ struct CartView: View {
                 }
                 
                 Section {
-                    HStack {
-                        Text("Total")
-                        
-                        Spacer()
-                        
-                        Text(cart.total, format: .currency(code: "JPY"))
-                            .fontWeight(.semibold)
-                    }
                     
-                    Button() {
-                        showCheckout = true
-                    } label: {
-                        Text("Go to Checkout")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .frame(maxWidth: .infinity)
-                    .listRowSeparator(.hidden)
-                    .disabled(cart.items.isEmpty)
                     
-                    Button("Clear Cart", role: .destructive) {
-                        showClearConfirmation = true
-                    }
-                    .frame(maxWidth: .infinity)
+                    
                 }
             }
         }
@@ -93,11 +72,39 @@ struct CartView: View {
         .navigationDestination(isPresented: $showCheckout) {
             CheckoutView()
         }
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 10) {
+                HStack {
+                    Text("Total")
+                    Text(cart.total, format: .currency(code: "JPY"))
+                        .fontWeight(.semibold)
+                }
+                
+                Button() {
+                    showCheckout = true
+                } label: {
+                    Text("Go to Checkout")
+                }
+                .buttonStyle(.borderedProminent)
+                .frame(maxWidth: .infinity)
+                .disabled(cart.items.isEmpty)
+                
+                Button("Clear Cart", role: .destructive) {
+                    showClearConfirmation = true
+                }
+                .frame(maxWidth: .infinity)
+                .buttonStyle(.borderedProminent)
+                .disabled(cart.items.isEmpty)
+            }
+            .padding()
+            .background(.ultraThinMaterial)
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 VStack() {
                     Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
                         .foregroundStyle(.secondary)
+                        .monospacedDigit()
                 }
                 .padding()
             }

@@ -63,6 +63,7 @@ struct CheckoutView: View {
                 VStack() {
                     Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
                         .foregroundStyle(.secondary)
+                        .monospacedDigit()
                 }
                 .padding()
             }
@@ -93,6 +94,7 @@ struct CheckoutView: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
+            .listRowSeparator(.hidden)
             .disabled(cart.items.isEmpty || !wallet.canAfford(cart.total))
             
             if !wallet.canAfford(cart.total) {
