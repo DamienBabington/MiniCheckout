@@ -12,6 +12,7 @@ struct ProductListView: View {
     @Environment(WalletStore.self) private var wallet
     
     @State private var viewModel = ProductListViewModel()
+    @State private var quantities: [UUID: Int] = [:]
     
     var body: some View {
         Group {
@@ -40,8 +41,22 @@ struct ProductListView: View {
                                 
                                 Spacer()
                                 
+                                Stepper("Quantity",
+                                        value: Binding(
+                                            get: { quantity(for: product) },
+                                            set: { quantities[product.id] = max(1, $0) }
+                                        ),
+                                        in: 1...20
+                                )
+                                .labelsHidden()
+                                
+                                Text("\(quantity(for: product))")
+                                    .padding()
+                                
                                 Button("Add") {
-                                    cart.add(product)
+                                    let qty = quantity(for: product)
+                                    cart.setQuantity(qty, for: product)
+                                    quantities[product.id] = 1
                                 }
                                 .buttonStyle(.borderedProminent)
                             }
@@ -65,6 +80,10 @@ struct ProductListView: View {
                 .padding()
             }
         }
+    }
+    
+    private func quantity(for product: Product) -> Int {
+        quantities[product.id] ?? 1
     }
 }
 

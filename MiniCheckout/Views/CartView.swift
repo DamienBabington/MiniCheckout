@@ -70,8 +70,11 @@ struct CartView: View {
                             .fontWeight(.semibold)
                     }
                     
-                    Button("Go to Checkout") {
+                    Button() {
                         showCheckout = true
+                    } label: {
+                        Text("Go to Checkout")
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
                     .frame(maxWidth: .infinity)
