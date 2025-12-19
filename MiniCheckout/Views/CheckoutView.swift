@@ -69,7 +69,7 @@ struct CheckoutView: View {
         switch viewModel.state {
         case .ready:
             Button {
-                let request = makeRequest()
+                guard let request = makeRequest() else { return }
                 Task { await viewModel.pay(with: request) }
             } label: {
                 Text("Pay \(cart.total, format: .currency(code: "USD"))")
@@ -99,7 +99,7 @@ struct CheckoutView: View {
                 
                 HStack {
                     Button("Retry") {
-                        let request = makeRequest()
+                        guard let request = makeRequest() else { return }
                         Task { await viewModel.pay(with: request) }
                     }
                     .buttonStyle(.borderedProminent)
@@ -130,7 +130,9 @@ struct CheckoutView: View {
         }
     }
     
-    private func makeRequest() -> CheckoutRequest {
+    private func makeRequest() -> CheckoutRequest? {
+        guard !cart.items.isEmpty else { return nil }
+        
         let items = cart.items.map {
             CheckoutRequest.LineItem(
                 productID: $0.product.id,

@@ -11,6 +11,7 @@ struct CartView: View {
     @Environment(CartStore.self) private var cart
     
     @State private var showCheckout = false
+    @State private var showClearConfirmation: Bool = false
     
     var body: some View {
         List {
@@ -32,18 +33,29 @@ struct CartView: View {
                             
                             Spacer()
                             
-                            Stepper(
-                                value: Binding(
-                                    get: { item.quantity },
-                                    set: { cart.setQuantity($0, for: item.product) }
-                                ),
-                                in: 0...20
-                            ) {
-                                Text("\(item.quantity)")
+                            VStack(spacing: 4) {
+                                Text(
+                                    (item.product.price * Decimal(item.quantity)),
+                                    format: .currency(code: "USD")
+                                )
+                                .fontWeight(.semibold)
+                                
+                                Text("Quantity: \(item.quantity)")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
                                     .monospacedDigit()
-                                    .frame(width: 30, alignment: .trailing)
+                                
+                                Stepper(
+                                    value: Binding(
+                                        get: { item.quantity },
+                                        set: { cart.setQuantity($0, for: item.product) }
+                                    ),
+                                    in: 0...20
+                                ) {
+                                    EmptyView()
+                                }
+                                .labelsHidden()
                             }
-                            .labelsHidden()
                         }
                     }
                 }
@@ -62,17 +74,27 @@ struct CartView: View {
                         showCheckout = true
                     }
                     .buttonStyle(.borderedProminent)
+                    .frame(maxWidth: .infinity)
                     .disabled(cart.items.isEmpty)
                     
                     Button("Clear Cart", role: .destructive) {
-                        cart.clear()
+                        showClearConfirmation = true
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
         }
         .navigationTitle("Cart")
         .navigationDestination(isPresented: $showCheckout) {
             CheckoutView()
+        }
+        .alert("Clear Cart", isPresented: $showClearConfirmation) {
+            Button("Clear Cart", role: .destructive) {
+                cart.clear()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("This will remove all items from your cart.")
         }
     }
 }

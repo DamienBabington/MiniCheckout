@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(CartStore.self) private var cart
+    
     var body: some View {
         TabView {
             NavigationStack {
                 ProductListView()
             }
-            .tabItem { Label("Products", systemImage: "cart") }
+            .tabItem {
+                Label("Products", systemImage: "cart")
+            }
             
             NavigationStack {
                 CartView()
             }
-            .tabItem { Label("Cart", systemImage: "bag")}
+            .tabItem {
+                Label("Cart", systemImage: "bag")
+            }
+            .badge(cart.itemCount)
         }
     }
 }
