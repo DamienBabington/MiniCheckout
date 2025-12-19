@@ -1,4 +1,4 @@
-# Mini Checkout App
+# MiniCheckout App
 
 ## SwiftUI Demo – Supermarket Checkout Flow
 
