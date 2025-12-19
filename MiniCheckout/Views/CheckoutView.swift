@@ -13,15 +13,19 @@ struct CheckoutView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var viewModel = CheckoutViewModel()
+    @State private var orderItems: [CartItem]? = nil
+    @State private var orderTotal: Int? = nil
     
     var body: some View {
         List {
             Section("Order Summary") {
-                if cart.items.isEmpty {
+                let items = orderItems ?? cart.items
+                
+                if items.isEmpty {
                     Text("Your cart is empty.")
                         .foregroundStyle(.secondary)
                 } else {
-                    ForEach(cart.items) { item in
+                    ForEach(items) { item in
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("\(item.product.name)")
@@ -29,7 +33,6 @@ struct CheckoutView: View {
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
-                            
                             Spacer()
                             
                             Text("x \(item.quantity)")
@@ -41,12 +44,12 @@ struct CheckoutView: View {
             }
             
             Section {
+                let total = orderTotal ?? cart.total
+                
                 HStack {
                     Text("Total")
-                    
                     Spacer()
-                    
-                    Text(cart.total, format: .currency(code: "JPY"))
+                    Text(total, format: .currency(code: "JPY"))
                         .fontWeight(.semibold)
                 }
             }
@@ -70,6 +73,11 @@ struct CheckoutView: View {
         case .ready:
             Button {
                 guard let request = makeRequest() else { return }
+                
+                // Create snapshot of the current order
+                orderItems = cart.items
+                orderTotal = cart.total
+                
                 Task { await viewModel.pay(with: request) }
             } label: {
                 Text("Pay \(cart.total, format: .currency(code: "JPY"))")
@@ -107,6 +115,8 @@ struct CheckoutView: View {
                     
                     Button("Cancel") {
                         viewModel.reset()
+                        orderItems = nil
+                        orderTotal = nil
                     }
                     .buttonStyle(.bordered)
                 }
@@ -117,12 +127,11 @@ struct CheckoutView: View {
                 Text("Payment Confirmed")
                     .font(.headline)
                 
-                Text("Receipt: \(receipt.receiptID.uuidString.prefix(8))")
-                    .foregroundStyle(.secondary)
-                
                 Text("Total: \(receipt.total, format: .currency(code: "JPY"))")
                 
                 Button("Done") {
+                    orderItems = nil
+                    orderTotal = nil
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)
