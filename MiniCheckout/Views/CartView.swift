@@ -35,7 +35,7 @@ struct CartView: View {
                             
                             VStack(spacing: 4) {
                                 Text(
-                                    (item.product.price * Decimal(item.quantity)),
+                                    (item.product.price * item.quantity),
                                     format: .currency(code: "JPY")
                                 )
                                 .fontWeight(.semibold)

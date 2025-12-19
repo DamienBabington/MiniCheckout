@@ -11,15 +11,15 @@ struct CheckoutRequest: Codable, Equatable {
     struct LineItem: Codable, Equatable {
         let productID: UUID
         let quantity: Int
-        let unitPrice: Decimal
+        let unitPrice: Int
     }
     
     let items: [LineItem]
-    let total: Decimal
+    let total: Int
 }
 
 struct CheckoutReceipt: Codable, Equatable {
     let receiptID: UUID
-    let total: Decimal
+    let total: Int
     let timestampe: Date
 }

@@ -10,9 +10,9 @@ import Foundation
 struct Product: Identifiable, Codable, Hashable {
     let id: UUID
     let name: String
-    let price: Decimal
+    let price: Int
     
-    init(id: UUID = UUID(), name: String, price: Decimal) {
+    init(id: UUID = UUID(), name: String, price: Int) {
         self.id = id
         self.name = name
         self.price = price

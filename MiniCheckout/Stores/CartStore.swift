@@ -76,9 +76,9 @@ final class CartStore {
         items.reduce(0) { $0 + $1.quantity }
     }
     
-    var total: Decimal {
+    var total: Int {
         // Sum of each product's subtotal
-        items.reduce(0) { $0 + ($1.product.price * Decimal($1.quantity)) }
+        items.reduce(0) { $0 + ($1.product.price * $1.quantity) }
     }
     
     // MARK: - Persistence
