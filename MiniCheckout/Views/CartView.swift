@@ -78,6 +78,7 @@ struct CartView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .frame(maxWidth: .infinity)
+                    .listRowSeparator(.hidden)
                     .disabled(cart.items.isEmpty)
                     
                     Button("Clear Cart", role: .destructive) {
