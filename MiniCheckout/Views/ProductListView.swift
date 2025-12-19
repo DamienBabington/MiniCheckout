@@ -55,7 +55,7 @@ struct ProductListView: View {
                                 
                                 Button("Add") {
                                     let qty = quantity(for: product)
-                                    cart.setQuantity(qty, for: product)
+                                    cart.add(product, quantity: qty)
                                     quantities[product.id] = 1
                                 }
                                 .buttonStyle(.borderedProminent)
