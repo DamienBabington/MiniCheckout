@@ -24,13 +24,15 @@ final class CartStore {
     // MARK: - Cart Actions
     
     @MainActor
-    func add(_ product: Product) {
-        // Increment if product is already in the cart
+    func add(_ product: Product, quantity: Int = 1) {
+        let qtyToAdd = max(1, quantity)
+        
+        // Update product's qty in cart
         if let index = items.firstIndex(where: { $0.product.id == product.id }) {
-            items[index].quantity += 1
+            items[index].quantity += qtyToAdd
         } else {
             // Add product to cart
-            items.append(CartItem(product: product, quantity: 1))
+            items.append(CartItem(product: product, quantity: qtyToAdd))
         }
     }
     
