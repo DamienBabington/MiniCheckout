@@ -1,5 +1,5 @@
 //
-//  MockCheckoutAPI.swift
+//  DemoCheckoutAPI.swift
 //  MiniCheckout
 //
 //  Created by Damien Babington on 12/18/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MockCheckoutAPI: CheckoutAPI {
+final class DemoCheckoutAPI: CheckoutAPI {
     
     func checkout(_ request: CheckoutRequest) async throws -> CheckoutReceipt {
         // Random delay between 1-2 seconds

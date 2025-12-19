@@ -20,7 +20,7 @@ final class CheckoutViewModel {
     private let api: CheckoutAPI
     private(set) var state: State = .ready
     
-    init(api: CheckoutAPI = MockCheckoutAPI()) {
+    init(api: CheckoutAPI = DemoCheckoutAPI()) {
         self.api = api
     }
     
