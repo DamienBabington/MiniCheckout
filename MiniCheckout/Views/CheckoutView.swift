@@ -42,29 +42,40 @@ struct CheckoutView: View {
                     }
                 }
             }
-            
-            Section {
-                let total = orderTotal ?? cart.total
-                
-                HStack {
-                    Text("Total")
-                    Spacer()
-                    Text(total, format: .currency(code: "JPY"))
-                        .fontWeight(.semibold)
-                }
-            }
-            
-            Section {
-                checkoutStateRow
-            }
         }
         .navigationTitle("Checkout")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                let total = orderTotal ?? cart.total
+                
+                VStack(spacing: 4) {
+                    Text("Total: \(total, format: .currency(code: "JPY"))")
+                    Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                }
+                .padding()
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            checkoutBottomPanel
+        }
         .onChange(of: viewModel.state) { _, newState in
             if case .success(let receipt) = newState {
                 wallet.deduct(receipt.total)
                 cart.clear()
             }
         }
+    }
+    
+    @ViewBuilder
+    private var checkoutBottomPanel: some View {
+        VStack(spacing: 10) {
+            checkoutStateRow
+        }
+        .padding()
+        .background(.ultraThinMaterial)
     }
     
     @ViewBuilder
@@ -85,11 +96,13 @@ struct CheckoutView: View {
             }
             .buttonStyle(.borderedProminent)
             .disabled(cart.items.isEmpty || !wallet.canAfford(cart.total))
+            .padding()
+            .background(.ultraThinMaterial)
             
             if !wallet.canAfford(cart.total) {
                 Text("Insufficient wallet balance.")
                     .font(.caption)
-                    .foregroundStyle(.red)                    
+                    .foregroundStyle(.red)
             }
             
         case .processing:
@@ -101,7 +114,7 @@ struct CheckoutView: View {
             .frame(maxWidth: .infinity, alignment: .center)
             
         case .failed(let message):
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(spacing: 12) {
                 Text(message)
                     .foregroundStyle(.red)
                 
@@ -121,6 +134,7 @@ struct CheckoutView: View {
                     .buttonStyle(.bordered)
                 }
             }
+            .frame(maxWidth: .infinity)
             
         case .success(let receipt):
             VStack(alignment: .leading, spacing: 12) {
@@ -136,6 +150,8 @@ struct CheckoutView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
+            .frame(maxWidth: .infinity)
+            .multilineTextAlignment(.center)
         }
     }
     
