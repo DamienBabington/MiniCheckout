@@ -60,12 +60,6 @@ struct CartView: View {
                         }
                     }
                 }
-                
-                Section {
-                    
-                    
-                    
-                }
             }
         }
         .navigationTitle("Cart")
@@ -76,7 +70,9 @@ struct CartView: View {
             VStack(spacing: 10) {
                 HStack {
                     Text("Total")
+                        .font(.title)
                     Text(cart.total, format: .currency(code: "JPY"))
+                        .font(.title)
                         .fontWeight(.semibold)
                 }
                 
@@ -93,7 +89,6 @@ struct CartView: View {
                     showClearConfirmation = true
                 }
                 .frame(maxWidth: .infinity)
-                .buttonStyle(.borderedProminent)
                 .disabled(cart.items.isEmpty)
             }
             .padding()
@@ -101,12 +96,10 @@ struct CartView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                VStack() {
-                    Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
-                        .foregroundStyle(.secondary)
-                        .monospacedDigit()
-                }
-                .padding()
+                Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
+                    .foregroundStyle(.secondary)
+                    .monospacedDigit()
+                    .padding()
             }
         }
         .alert("Clear Cart", isPresented: $showClearConfirmation) {

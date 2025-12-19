@@ -71,14 +71,10 @@ struct ProductListView: View {
         .navigationTitle("Products")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                VStack() {
-                    Text("Cart: \(cart.itemCount)")
-                    Text("Wallet \(wallet.balance, format: .currency(code: "JPY"))")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .monospacedDigit()
-                }
-                .padding()
+                Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
+                    .foregroundStyle(.secondary)
+                    .monospacedDigit()
+                    .padding()
             }
         }
     }
