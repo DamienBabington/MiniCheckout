@@ -6,14 +6,35 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		749FBFD02EF4DF2D00E5EFB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 749FBF7B2EF3815300E5EFB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 749FBF822EF3815300E5EFB6;
+			remoteInfo = MiniCheckout;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		749FBF832EF3815300E5EFB6 /* MiniCheckout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniCheckout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		749FBFCC2EF4DF2D00E5EFB6 /* MiniCheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniCheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		749FBF852EF3815300E5EFB6 /* MiniCheckout */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MiniCheckout;
+			sourceTree = "<group>";
+		};
+		749FBFA82EF4036000E5EFB6 /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		749FBFCD2EF4DF2D00E5EFB6 /* MiniCheckoutTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MiniCheckoutTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,13 +47,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		749FBFC92EF4DF2D00E5EFB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		749FBF7A2EF3815300E5EFB6 = {
 			isa = PBXGroup;
 			children = (
+				749FBFA82EF4036000E5EFB6 /* Resources */,
 				749FBF852EF3815300E5EFB6 /* MiniCheckout */,
+				749FBFCD2EF4DF2D00E5EFB6 /* MiniCheckoutTests */,
 				749FBF842EF3815300E5EFB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				749FBF832EF3815300E5EFB6 /* MiniCheckout.app */,
+				749FBFCC2EF4DF2D00E5EFB6 /* MiniCheckoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -62,6 +93,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				749FBF852EF3815300E5EFB6 /* MiniCheckout */,
+				749FBFA82EF4036000E5EFB6 /* Resources */,
 			);
 			name = MiniCheckout;
 			packageProductDependencies = (
@@ -69,6 +101,29 @@
 			productName = MiniCheckout;
 			productReference = 749FBF832EF3815300E5EFB6 /* MiniCheckout.app */;
 			productType = "com.apple.product-type.application";
+		};
+		749FBFCB2EF4DF2D00E5EFB6 /* MiniCheckoutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 749FBFD22EF4DF2D00E5EFB6 /* Build configuration list for PBXNativeTarget "MiniCheckoutTests" */;
+			buildPhases = (
+				749FBFC82EF4DF2D00E5EFB6 /* Sources */,
+				749FBFC92EF4DF2D00E5EFB6 /* Frameworks */,
+				749FBFCA2EF4DF2D00E5EFB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				749FBFD12EF4DF2D00E5EFB6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				749FBFCD2EF4DF2D00E5EFB6 /* MiniCheckoutTests */,
+			);
+			name = MiniCheckoutTests;
+			packageProductDependencies = (
+			);
+			productName = MiniCheckoutTests;
+			productReference = 749FBFCC2EF4DF2D00E5EFB6 /* MiniCheckoutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -82,6 +137,10 @@
 				TargetAttributes = {
 					749FBF822EF3815300E5EFB6 = {
 						CreatedOnToolsVersion = 26.0.1;
+					};
+					749FBFCB2EF4DF2D00E5EFB6 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 749FBF822EF3815300E5EFB6;
 					};
 				};
 			};
@@ -100,12 +159,20 @@
 			projectRoot = "";
 			targets = (
 				749FBF822EF3815300E5EFB6 /* MiniCheckout */,
+				749FBFCB2EF4DF2D00E5EFB6 /* MiniCheckoutTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		749FBF812EF3815300E5EFB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		749FBFCA2EF4DF2D00E5EFB6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +189,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		749FBFC82EF4DF2D00E5EFB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		749FBFD12EF4DF2D00E5EFB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilters = (
+				ios,
+				xros,
+			);
+			target = 749FBF822EF3815300E5EFB6 /* MiniCheckout */;
+			targetProxy = 749FBFD02EF4DF2D00E5EFB6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		749FBF8C2EF3815400E5EFB6 /* Debug */ = {
@@ -329,6 +415,57 @@
 			};
 			name = Release;
 		};
+		749FBFD32EF4DF2D00E5EFB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 66599JH4Y4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = damienbabington.MiniCheckoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiniCheckout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MiniCheckout";
+				XROS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		749FBFD42EF4DF2D00E5EFB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 66599JH4Y4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = damienbabington.MiniCheckoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiniCheckout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MiniCheckout";
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -346,6 +483,15 @@
 			buildConfigurations = (
 				749FBF8F2EF3815400E5EFB6 /* Debug */,
 				749FBF902EF3815400E5EFB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		749FBFD22EF4DF2D00E5EFB6 /* Build configuration list for PBXNativeTarget "MiniCheckoutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				749FBFD32EF4DF2D00E5EFB6 /* Debug */,
+				749FBFD42EF4DF2D00E5EFB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
