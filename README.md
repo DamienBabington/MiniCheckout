@@ -71,7 +71,7 @@ Users can browse products, add items to a cart, and complete a mock payment flow
 
 - **Xcode:** 16+
 - **iOS:** 18+
-- **Language:** Swift (SwiftUI)
+- **Language:** Swift
 
 ---
 
