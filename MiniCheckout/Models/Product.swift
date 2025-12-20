@@ -11,10 +11,12 @@ struct Product: Identifiable, Codable, Hashable {
     let id: UUID
     let name: String
     let price: Int
+    let imageName: String
     
-    init(id: UUID = UUID(), name: String, price: Int) {
+    init(id: UUID = UUID(), name: String, price: Int, imageName: String) {
         self.id = id
         self.name = name
         self.price = price
+        self.imageName = imageName
     }
 }

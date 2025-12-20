@@ -41,6 +41,17 @@ struct ProductListView: View {
                     Section {
                         ForEach(filteredProducts) { product in
                             HStack {
+                                Image(product.imageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 44, height: 44)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(.quaternary)
+                                    }
+                                    .padding(.trailing, 8)
+                                
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(product.name)
                                     Text(product.price, format: .currency(code: "JPY"))
