@@ -84,12 +84,6 @@ struct CartView: View {
                 .buttonStyle(.borderedProminent)
                 .frame(maxWidth: .infinity)
                 .disabled(cart.items.isEmpty)
-                
-                Button("Clear Cart", role: .destructive) {
-                    showClearConfirmation = true
-                }
-                .frame(maxWidth: .infinity)
-                .disabled(cart.items.isEmpty)
             }
             .padding()
             .background(.ultraThinMaterial)
@@ -100,6 +94,16 @@ struct CartView: View {
                     .foregroundStyle(.secondary)
                     .monospacedDigit()
                     .padding()
+            }
+            
+            ToolbarItem(placement: .topBarLeading) {
+                Button(role: .destructive) {
+                    showClearConfirmation = true
+                } label: {
+                    Image(systemName: "trash").foregroundStyle(.red)
+                }
+                .disabled(cart.items.isEmpty)
+                .accessibilityLabel("Clear Cart")
             }
         }
         .alert("Clear Cart", isPresented: $showClearConfirmation) {
