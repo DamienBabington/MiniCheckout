@@ -75,13 +75,6 @@ Users can browse products, add items to a cart, and complete a mock payment flow
 
 ---
 
-## Running the App
-
-1. Clone the repository
-2. Open `MiniCheckout.xcodeproj` in Xcode
-3. Select an iOS simulator
-4. Build and run (`Cmd + R`)
-
 ## Notes
 
 This project was built as a take-home assignment to demonstrate:
