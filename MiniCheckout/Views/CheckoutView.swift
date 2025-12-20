@@ -33,11 +33,26 @@ struct CheckoutView: View {
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
+                            .frame(width: 100, alignment: .leading)
+                            
+                            Spacer()
+                            
+                            Image(item.product.imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 66, height: 66)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.quaternary)
+                                }
+                            
                             Spacer()
                             
                             Text("x \(item.quantity)")
                                 .foregroundStyle(.secondary)
                                 .padding(.trailing)
+                                .frame(width: 100, alignment: .trailing)
                         }
                     }
                 }

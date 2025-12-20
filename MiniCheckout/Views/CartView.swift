@@ -23,7 +23,7 @@ struct CartView: View {
             } else {
                 Section("Items") {
                     ForEach(cart.items) { item in
-                        HStack {
+                        HStack(alignment: .center, spacing: 12) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(item.product.name)
                                 
@@ -31,15 +31,23 @@ struct CartView: View {
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
+                            .frame(width: 100, alignment: .leading)
                             
-                            Spacer()
+                            Image(item.product.imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 66, height: 66)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.quaternary)
+                                }
                             
-                            VStack(spacing: 4) {
+                            VStack(alignment: .trailing, spacing: 4) {
                                 Text(
-                                    (item.product.price * item.quantity),
-                                    format: .currency(code: "JPY")
-                                )
+                                    (item.product.price * item.quantity), format: .currency(code: "JPY"))
                                 .fontWeight(.semibold)
+                                .monospacedDigit()
                                 
                                 Text("Quantity: \(item.quantity)")
                                     .font(.caption)
@@ -57,6 +65,7 @@ struct CartView: View {
                                 }
                                 .labelsHidden()
                             }
+                            .frame(width: 140, alignment: .trailing)
                         }
                     }
                 }
