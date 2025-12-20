@@ -13,6 +13,7 @@ struct ProductListView: View {
     
     @State private var viewModel = ProductListViewModel()
     @State private var quantities: [UUID: Int] = [:]
+    @State private var searchText: String = ""
     
     var body: some View {
         Group {
@@ -20,6 +21,7 @@ struct ProductListView: View {
             case .idle, .loading:
                 ProgressView("Loading products...")
                     .task { await viewModel.loadProducts() }
+                
             case .failed(let message):
                 VStack(spacing: 12) {
                     Text(message)
@@ -27,11 +29,29 @@ struct ProductListView: View {
                         Task { await viewModel.loadProducts() }
                     }
                 }
+                
             case .loaded(let products):
+                let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                let filteredProducts = query.isEmpty
+                ? products
+                : products.filter { $0.name.localizedCaseInsensitiveContains(query) }
+                
                 List {
                     Section {
-                        ForEach(products) { product in
+                        ForEach(filteredProducts) { product in
                             HStack {
+                                Image(product.imageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 44, height: 44)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(.quaternary)
+                                    }
+                                    .padding(.trailing, 8)
+                                
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(product.name)
                                     Text(product.price, format: .currency(code: "JPY"))
@@ -69,6 +89,7 @@ struct ProductListView: View {
             }
         }
         .navigationTitle("Products")
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Text("Wallet: \(wallet.balance, format: .currency(code: "JPY"))")
